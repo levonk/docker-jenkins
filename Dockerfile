@@ -2,6 +2,8 @@
 FROM jenkins:2.19.3
 MAINTAINER Levon Karayan
 
+ENV JENKINS_HOME /var/jenkins_home
+
 ARG user=jenkins
 ARG group=jenkins
 ARG uid=1000
@@ -16,5 +18,8 @@ USER ${user}
 
 ENV JENKINS_OPTS="--handlerCountStartup=10 --handlerCountMax=30 --logfile=/var/log/jenkins/jenkins.log"
 
-COPY plugins.txt ${JENKINS_HOME}/.
-RUN plugins.sh plugins.txt
+COPY plugins.txt ${JENKINS_HOME}
+RUN install-plugins.sh git:3.0.0
+RUN install-plugins.sh github:1.22.3
+RUN install-plugins.sh github-api:1.79
+RUN install-plugins.sh google-login:1.2.1
