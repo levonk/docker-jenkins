@@ -18,7 +18,6 @@ USER ${user}
 
 ENV JENKINS_OPTS="--handlerCountStartup=10 --handlerCountMax=30 --logfile=/var/log/jenkins/jenkins.log"
 
-COPY plugins.txt ${JENKINS_HOME}
 RUN install-plugins.sh git:3.0.0
 RUN install-plugins.sh github:1.22.3
 RUN install-plugins.sh github-api:1.79
